@@ -1,0 +1,54 @@
+Database operations:
+	Creating
+	Alter
+	Update
+	Select: Select column(s)/aggregation from table_name where condition orderby (sortings)
+		select * from bfsi.kyc;
+		select account_number from bfsi.kyc;
+		select account_number,account_holder,aadhaar from bfsi.kyc;
+		select * from bfsi.kyc where communication like '%Salem%';
+		select * from bfsi.kyc where account_balance in(2300.5,400.5);
+select * from bfsi.kyc where account_balance>500 and account_balance<5000;
+
+select * from bfsi.kyc where account_balance>500 and account_holder like '%a%' or account_holder like '%i%';
+
+select * from bfsi.kyc where account_balance>500 and account_holder like '%o%' or account_holder like '%e%';
+
+select * from bfsi.kyc where account_balance between 100 and 3000;
+
+select * from bfsi.kyc order by email;
+
+select * from bfsi.kyc order by account_balance desc;
+
+
+Deleting:
+delete from bfsi.kyc where account_balance<5000;
+
+truncate bfsi.kyc;
+
+DDL:
+drop table bfsi.kyc;
+
+drop database bfsi;
+
+
+
+ALTER TABLE `bfsi`.`kyc` 
+ADD COLUMN `aadhaar` BIGINT(12) NULL AFTER `address`,
+ADD COLUMN `pan` VARCHAR(45) NULL AFTER `aadhaar`;
+
+ALTER TABLE `bfsi`.`kyc` 
+CHANGE COLUMN `address` `communication` TEXT NULL DEFAULT NULL ;
+
+
+insert into bfsi.kyc(account_holder,account_balance,contact,email,communication,aadhaar,pan) values('Annamalai',45600.5,999999999,'annamalai@gmail.com','Guga, SAlem',11223344555,'PCDES1231D');
+
+1000223002
+
+insert into bfsi.kyc(account_holder,account_balance,contact,email,communication,aadhaar,pan) values('Manoj',5600.5,999999999,'manoj@gmail.com','Elachipalayam, SAlem',98767676766,'AVCDR7677K'),('Athik',400.5,777777777777,'athik@gmail.com','Old Bustand, SAlem',987877
+33233,'DSFJD2342D');
+
+update bfsi.kyc set account_balance=account_balance-100;
+
+update bfsi.kyc set account_balance=account_balance+1200, communication='Fairlands, Salem', email='razzaksr@gmail.com' where account_number=1000223001;
+
