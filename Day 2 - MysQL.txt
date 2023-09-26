@@ -1,0 +1,263 @@
+Day 2:
+TCL:
+	// enable(1)/ disable(0) autocommit
+	set autocommit=1;
+
+	create database muthayammal;
+	use muthayammal;
+	create table debitcard(card_number bigint(10) not null, card_holder varchar(255) not null, card_expiry date not null, card_cvv int(4) not null, primary key(card_number));
+	show tables;
+
+	insert into debitcard values(9898989898,'Razak Mohamed S','2025-09-12',344);
+
+ rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from debitcard;
++-------------+-----------------+-------------+----------+
+| card_number | card_holder     | card_expiry | card_cvv |
++-------------+-----------------+-------------+----------+
+|  9898989898 | Razak Mohamed S | 2025-09-12  |      344 |
++-------------+-----------------+-------------+----------+
+1 row in set (0.00 sec)
+
+start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+insert into debitcard values(111223232323,'Sabarinathan','2027-11-30',987);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from debitcard;
++-------------+-----------------+-------------+----------+
+| card_number | card_holder     | card_expiry | card_cvv |
++-------------+-----------------+-------------+----------+
+|  9898989898 | Razak Mohamed S | 2025-09-12  |      344 |
++-------------+-----------------+-------------+----------+
+
+DDL: Views
+
+mysql> create view wholerecords as select * from debitcard;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from wholerecords;
++--------------+-----------------+-------------+----------+
+| card_number  | card_holder     | card_expiry | card_cvv |
++--------------+-----------------+-------------+----------+
+|   9898989898 | Razak Mohamed S | 2025-09-12  |      344 |
+|  12343454656 | Sheik Ameeth    | 2030-10-01  |      678 |
+|  88883822333 | Manikandan      | 2026-11-10  |      655 |
+| 111223232323 | Sabarinathan    | 2027-11-30  |      987 |
++--------------+-----------------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> create or replace view wholerecords as select * from debitcard where card_holder like 'S%';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from wholerecords;
++--------------+--------------+-------------+----------+
+| card_number  | card_holder  | card_expiry | card_cvv |
++--------------+--------------+-------------+----------+
+|  12343454656 | Sheik Ameeth | 2030-10-01  |      678 |
+| 111223232323 | Sabarinathan | 2027-11-30  |      987 |
++--------------+--------------+-------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> drop view wholerecords;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from wholerecords;
+ERROR 1146 (42S02): Table 'muthayammal.wholerecords' doesn't exist
+
+DDL: User creating
+mysql> create user 'mohamed'@'localhost' identified by 'razak';
+Query OK, 0 rows affected (0.01 sec)
+
+C:\Users\ADMIN>mysql -u root -p
+Enter password: *********
+
+mysql> drop user 'mohamed'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop user 'nathan'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop user 'zealous'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create user 'nathan'@'localhost' identified by 'sabari';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user 'zealous'@'localhost' identified by 'razak';
+Query OK, 0 rows affected (0.01 sec)
+
+DCL: Grant, Revoke
+	C:\Users\ADMIN>mysql -u mohamed -p
+Enter password: *****
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> create database cse;
+ERROR 1044 (42000): Access denied for user 'mohamed'@'localhost' to database 'cse'
+
+C:\Users\ADMIN>mysql -u root -p
+Enter password: *********
+
+mysql> grant all privileges on *.* to 'mohamed'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+
+C:\Users\ADMIN>mysql -u mohamed -p
+Enter password: *****
+
+C:\Users\ADMIN>mysql -u nathan -p
+Enter password: ******
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\ADMIN>mysql -u root -p
+Enter password: *********
+
+mysql> show grants for 'mohamed'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, SHUTDOWN, PROCESS, FILE, REFERENCES, INDEX, ALTER, SHOW DATABASES, SUPER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER, CREATE TABLESPACE, CREATE ROLE, DROP ROLE ON *.* TO `mohamed`@`localhost`
+
+
+
+
+                                |
+| GRANT APPLICATION_PASSWORD_ADMIN,AUDIT_ABORT_EXEMPT,AUDIT_ADMIN,AUTHENTICATION_POLICY_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTION_ADMIN,CLONE_ADMIN,CONNECTION_ADMIN,ENCRYPTION_KEY_ADMIN,FIREWALL_EXEMPT,FLUSH_OPTIMIZER_COSTS,FLUSH_STATUS,FLUSH_TABLES,FLUSH_USER_RESOURCES,GROUP_REPLICATION_ADMIN,GROUP_REPLICATION_STREAM,INNODB_REDO_LOG_ARCHIVE,INNODB_REDO_LOG_ENABLE,PASSWORDLESS_USER_ADMIN,PERSIST_RO_VARIABLES_ADMIN,REPLICATION_APPLIER,REPLICATION_SLAVE_ADMIN,RESOURCE_GROUP_ADMIN,RESOURCE_GROUP_USER,ROLE_ADMIN,SENSITIVE_VARIABLES_OBSERVER,SERVICE_CONNECTION_ADMIN,SESSION_VARIABLES_ADMIN,SET_USER_ID,SHOW_ROUTINE,SYSTEM_USER,SYSTEM_VARIABLES_ADMIN,TABLE_ENCRYPTION_ADMIN,TELEMETRY_LOG_ADMIN,XA_RECOVER_ADMIN ON *.* TO `mohamed`@`localhost` |
+
+
+mysql> grant select on muthayammal.debitcard to 'nathan'@'localhost';
+
+C:\Users\ADMIN>mysql -u nathan -p
+Enter password: ******
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| muthayammal        |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> use muthayammal;
+Database changed
+mysql> select * from debitcard;
++--------------+-----------------+-------------+----------+
+| card_number  | card_holder     | card_expiry | card_cvv |
++--------------+-----------------+-------------+----------+
+|   9898989898 | Razak Mohamed S | 2025-09-12  |      344 |
+|  12343454656 | Sheik Ameeth    | 2030-10-01  |      678 |
+|  88883822333 | Manikandan      | 2026-11-10  |      655 |
+| 111223232323 | Sabarinathan    | 2027-11-30  |      987 |
++--------------+-----------------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from debitcard where card_holder='Razak Mohamed S';
+ERROR 1142 (42000): DELETE command denied to user 'nathan'@'localhost' for table 'debitcard'
+mysql> exit
+Bye
+
+C:\Users\ADMIN>mysql -u root -p
+Enter password: *********
+
+mysql> revoke all privileges on *.* from 'mohamed'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+
+C:\Users\ADMIN>mysql -u mohamed -p
+Enter password: *****
+
+mysql> delete from muthayammal.debitcard where card_holder='Razak Mohamed S';
+ERROR 1142 (42000): DELETE command denied to user 'mohamed'@'localhost' for table 'debitcard'
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\ADMIN>mysql -u root -p
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 828
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> grant update,delete on muthayammal.debitcard to 'zealous'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+
+C:\Users\ADMIN>mysql -u zealous -p
+Enter password: *****
+
+mysql> use muthayammal;
+Database changed
+mysql> select * from debitcard;
+ERROR 1142 (42000): SELECT command denied to user 'zealous'@'localhost' for table 'debitcard'
+mysql> delete from muthayammal.debitcard where card_holder='Razak Mohamed S';
+ERROR 1143 (42000): SELECT command denied to user 'zealous'@'localhost' for column 'card_holder' in table 'debitcard'
+mysql> delete from muthayammal.debitcard where card_holder='Razak Mohamed S';
+ERROR 1143 (42000): SELECT command denied to user 'zealous'@'localhost' for column 'card_holder' in table 'debitcard'
+mysql> delete from debitcard;
+Query OK, 4 rows affected (0.00 sec)
+
+C:\Users\ADMIN>mysql -u root -p
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 830
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use muthayammal;
+Database changed
+mysql> select * from debitcard;
+Empty set (0.00 sec)
+
