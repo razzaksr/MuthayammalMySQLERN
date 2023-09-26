@@ -261,3 +261,60 @@ Database changed
 mysql> select * from debitcard;
 Empty set (0.00 sec)
 
+aggregate:
+mysql> select count(*) from debitcard;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+
+
+mysql> select distinct(card_holder) from debitcard;
++-----------------+
+| card_holder     |
++-----------------+
+| Razak Mohamed S |
+| Senthil kumar   |
+| Manoj kumar     |
+| Sabarinathan    |
++-----------------+
+4 rows in set (0.00 sec)
+
+
+mysql> select max(card_expiry) from debitcard;
++------------------+
+| max(card_expiry) |
++------------------+
+| 2031-09-01       |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select min(card_expiry) from debitcard;
++------------------+
+| min(card_expiry) |
++------------------+
+| 2025-09-12       |
++------------------+
+1 row in set (0.00 sec)
+
+
+
+Joins:
+mysql> create table customers(acc_number bigint(12) not null, acc_holder varchar(255) not null, acc_bal double not null, primary key(acc_number));
+
+mysql> create table transactions(transaction_id int(4) not null, transaction_date date not null, transaction_type varchar(255) not null, transaction_amount double not null, card bigint(10) not null, primary key(transaction_id));
+
+mysql> alter table debitcard add column account bigint(12) not null;
+
+mysql> alter table debitcard add foreign key(account) references customers(acc_number);
+
+mysql> alter table transactions add foreign key(card) references debitcard(card_number);
+
+
+select acc_holder, acc_number,card_number,card_holder from customers left join debitcard on acc_number=debitcard.account;
+
+select acc_holder, acc_number,card_number,card_holder from customers right join debitcard on acc_number=debitcard.account;
+
+select acc_holder, card_number, transaction_date, transaction_amount, transaction_type from customers left join 
+debitcard on acc_number=debitcard.account right join transactions on debitcard.card_number=transactions.card;
