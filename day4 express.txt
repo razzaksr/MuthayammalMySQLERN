@@ -1,0 +1,27 @@
+Creating an back end project/ JS project:
+	npm init -y
+
+npm install express
+npm install body-parser
+
+
+npm install express body-parser mysql2
+
+/node_modules
+package.json
+	name of the project/app
+	dependencies
+	execution
+
+Back end:GET, POST, PUT, DELETE
+	Web pages>> html,js,aspx,jinja,cshtml
+	Rest API: json
+
+
+http://localhost:1234
+http://localhost:1234/mec
+
+https://github.com
+https://github.com/razzaksr
+https://github.com/razzaksr?tab=repositories
+https://github.com/razzaksr?tab=projects
