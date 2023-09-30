@@ -1,0 +1,5 @@
+GET http://localhost:1122/make
+
+GET http://localhost:1122/term/89/11
+
+GET http://localhost:9090/fetch
