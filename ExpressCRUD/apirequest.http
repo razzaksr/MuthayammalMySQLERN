@@ -1,0 +1,7 @@
+GET http://localhost:2020/list
+
+GET http://localhost:2020/find/99999
+
+GET http://localhost:2020/balance/9000
+
+GET http://localhost:2020/cash/9000/10000

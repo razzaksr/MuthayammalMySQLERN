@@ -1,0 +1,43 @@
+ece-4
+
+java-30
+
+npm config set strict-ssl false
+
+Create an node project:
+npm init -y
+
+install express framework as server
+npm install express
+
+
+alpha.js
+
+
+
+
+restart server automatically when changes detected:
+
+npm install nodemon
+
+
+
+web codes:
+
+500		>> internal server
+200		>> success
+201		>> sucess but no response
+404		>> path is not valid/ resource not available
+
+
+Usign express route(get mapping) fetch records from table(mysql)
+
+npm install mysql2
+ 
+
+
+
+
+
+
+
