@@ -5,3 +5,12 @@ GET http://localhost:2020/find/99999
 GET http://localhost:2020/balance/9000
 
 GET http://localhost:2020/cash/9000/10000
+
+POST http://localhost:2020/new
+Content-Type: application/json
+
+{
+    "acc_number":4565434545,
+    "acc_holder":"Arun Rajput",
+    "acc_bal":876762.4
+}

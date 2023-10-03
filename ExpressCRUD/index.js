@@ -22,6 +22,20 @@ application.listen(2020,(err)=>{
 
 // CRUD operations:
 
+application.post('/new',async(req,res)=>{    
+    // destructure follows order of parameters
+    const{acc_number,acc_holder,acc_bal}=req.body
+
+    const sql="insert into customers values(?,?,?)"
+    dataBase.query(sql,[acc_number,acc_holder,acc_bal],(err,ack)=>{
+        if(err){
+            res.status(500).json({error:err.message})
+            return
+        }
+        res.status(200).json({message:"Customer has added"})
+    })
+})
+
 // Read operation display all customers: get
 application.get('/list',async(req,res)=>{
     const sql="select * from customers"
