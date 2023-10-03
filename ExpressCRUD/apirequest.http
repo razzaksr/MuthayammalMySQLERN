@@ -14,3 +14,15 @@ Content-Type: application/json
     "acc_holder":"Arun Rajput",
     "acc_bal":876762.4
 }
+
+PUT http://localhost:2020/info/change/4565434545
+Content-Type: application/json
+
+{
+    "acc_holder":"Arun madhesh",
+    "acc_bal":300
+}
+
+DELETE http://localhost:2020/info/delkey/1123232
+
+DELETE http://localhost:2020/info/close/9000

@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql2')
+const upndel = require('./modify')
 
 const dataBase = mysql.createConnection({
     host:"localhost",
@@ -12,6 +13,7 @@ dataBase.connect(()=>{
     console.log("Database connected successfully!!!!!!!!!!!!!")
 })
 const application=express()
+application.use('/info',upndel)
 application.use(bodyParser.urlencoded({extended:true}))
 application.use(bodyParser.json())
 
