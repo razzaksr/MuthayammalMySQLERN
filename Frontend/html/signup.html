@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Order Placement</title>
+</head>
+<body>
+    <!-- input: submit, reset, text, password, radio, checkbox, button, tel, email, file, date -->
+    <!-- button,select,textarea -->
+    <!-- <div align="center">
+        <h1>Java Stack</h1>
+        Thymeleaf with incorporated Spring boot and ORM is JPA
+        <h2>Docker</h2>
+        Containers for DevOPS
+        <h3>Git</h3>
+        Version Control System
+        <h4>Cloud</h4>
+        AWs
+        <h5>Testing</h5>
+        JUnit, Mockito
+        <h6>Log</h6>
+        Slf4J
+    </div> -->
+
+    <div align="center">
+        <h1>Place your order</h1>
+        <form name="order" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label>Name of the Person</label></td>
+                        <td>
+                            <input type="text" name="fullname" placeholder="Name of Invoice" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Contact Number</label></td>
+                        <td><input type="tel" name="contact" placeholder="mobile number"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Email ID</label></td>
+                        <td><input type="email" name="mail" placeholder="your email"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Delivery Address Here</td>
+                    </tr>
+                    <tr>
+                        <td><label>Door.No</label></td>
+                        <td>
+                            <input type="number" name="door" placeholder="Door number" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Street</label></td>
+                        <td><input type="text" placeholder="Street name" name="street"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Address type</label></td>
+                        <td>
+                            <input type="radio" name="addresstype" value="office" /> Office
+                            <input type="radio" name="addresstype" value="home" /> Home
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Delivery speed/ option</td>
+                        <td>
+                            <!-- <select name="speed" multiple> -->
+                            <select name="speed">
+                                <option>Select type of delivery</option>
+                                <option>Regular</option>
+                                <option>Same day</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>
+                            <input type="submit" value="place order" />
+                            <!-- <input type="button" value="Place order" /> -->
+                            <!-- <button type="reset">
+                                Place order
+                            </button> -->
+                        </td>
+                        <td>
+                            <input type="reset" value="cancel" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <textarea name="description"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
